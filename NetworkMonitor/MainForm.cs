@@ -25,6 +25,7 @@
 using NetworkMonitor.Properties;
 using System;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace NetworkMonitor
@@ -53,18 +54,40 @@ namespace NetworkMonitor
             {
                 Invoke((Action)delegate
                 {
-                    string text = isConnected ? "Connected." : "Disconnected.";
-
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.ForeColor = isConnected ? Color.Green : Color.Firebrick;
-                    lvi.Text = date.ToString();
-                    lvi.SubItems.Add(text);
-                    lvMain.Items.Add(lvi);
-
+                    AddConnectionStatus(isConnected, date, true);
                     UpdateStatusBar();
-
-                    niMain.ShowBalloonTip(5000, "Network monitor", text, ToolTipIcon.Info);
                 });
+            }
+        }
+
+        private void AddConnectionStatus(bool isConnected, DateTime date, bool showBalloonTip)
+        {
+            string text = isConnected ? "Connected." : "Disconnected.";
+
+            ListViewItem lvi = new ListViewItem();
+            lvi.ForeColor = isConnected ? Color.Green : Color.Firebrick;
+            lvi.Text = date.ToString();
+            lvi.SubItems.Add(text);
+            lvMain.Items.Add(lvi);
+
+            if (showBalloonTip)
+            {
+                niMain.ShowBalloonTip(5000, "Network monitor", text, ToolTipIcon.Info);
+            }
+        }
+
+        // For testing purposes
+        private void AddFakeConnectionStatus(int count)
+        {
+            DateTime date = DateTime.Now;
+            Random random = new Random();
+
+            for (int i = 0; i < count; i++)
+            {
+                date = date.AddSeconds(random.Next(300, 3600));
+                AddConnectionStatus(false, date, false);
+                date = date.AddSeconds(random.Next(1, 60));
+                AddConnectionStatus(true, date, false);
             }
         }
 
@@ -115,6 +138,22 @@ namespace NetworkMonitor
         {
             forceClose = true;
             Close();
+        }
+
+        private void tsbCopyAll_Click(object sender, EventArgs e)
+        {
+            if (lvMain.Items.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (ListViewItem lvi in lvMain.Items)
+                {
+                    sb.AppendLine(lvi.Text + " - " + lvi.SubItems[1].Text);
+                }
+
+                string text = sb.ToString().Trim();
+                Clipboard.SetText(text);
+            }
         }
     }
 }

@@ -39,11 +39,15 @@
             this.tscMain = new System.Windows.Forms.ToolStripContainer();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsMain = new System.Windows.Forms.ToolStrip();
+            this.tsbCopyAll = new System.Windows.Forms.ToolStripButton();
             this.cmsTray.SuspendLayout();
             this.tscMain.BottomToolStripPanel.SuspendLayout();
             this.tscMain.ContentPanel.SuspendLayout();
+            this.tscMain.TopToolStripPanel.SuspendLayout();
             this.tscMain.SuspendLayout();
             this.ssMain.SuspendLayout();
+            this.tsMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvMain
@@ -57,7 +61,7 @@
             this.lvMain.FullRowSelect = true;
             this.lvMain.Location = new System.Drawing.Point(0, 0);
             this.lvMain.Name = "lvMain";
-            this.lvMain.Size = new System.Drawing.Size(534, 439);
+            this.lvMain.Size = new System.Drawing.Size(534, 414);
             this.lvMain.TabIndex = 0;
             this.lvMain.UseCompatibleStateImageBehavior = false;
             this.lvMain.View = System.Windows.Forms.View.Details;
@@ -112,13 +116,17 @@
             // tscMain.ContentPanel
             // 
             this.tscMain.ContentPanel.Controls.Add(this.lvMain);
-            this.tscMain.ContentPanel.Size = new System.Drawing.Size(534, 439);
+            this.tscMain.ContentPanel.Size = new System.Drawing.Size(534, 414);
             this.tscMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscMain.Location = new System.Drawing.Point(0, 0);
             this.tscMain.Name = "tscMain";
             this.tscMain.Size = new System.Drawing.Size(534, 461);
             this.tscMain.TabIndex = 1;
             this.tscMain.Text = "toolStripContainer1";
+            // 
+            // tscMain.TopToolStripPanel
+            // 
+            this.tscMain.TopToolStripPanel.Controls.Add(this.tsMain);
             // 
             // ssMain
             // 
@@ -136,6 +144,26 @@
             this.tsslStatus.Name = "tsslStatus";
             this.tsslStatus.Size = new System.Drawing.Size(0, 17);
             // 
+            // tsMain
+            // 
+            this.tsMain.Dock = System.Windows.Forms.DockStyle.None;
+            this.tsMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbCopyAll});
+            this.tsMain.Location = new System.Drawing.Point(3, 0);
+            this.tsMain.Name = "tsMain";
+            this.tsMain.Size = new System.Drawing.Size(88, 25);
+            this.tsMain.TabIndex = 0;
+            // 
+            // tsbCopyAll
+            // 
+            this.tsbCopyAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbCopyAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCopyAll.Name = "tsbCopyAll";
+            this.tsbCopyAll.Size = new System.Drawing.Size(54, 22);
+            this.tsbCopyAll.Text = "Copy all";
+            this.tsbCopyAll.Click += new System.EventHandler(this.tsbCopyAll_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,10 +178,14 @@
             this.tscMain.BottomToolStripPanel.ResumeLayout(false);
             this.tscMain.BottomToolStripPanel.PerformLayout();
             this.tscMain.ContentPanel.ResumeLayout(false);
+            this.tscMain.TopToolStripPanel.ResumeLayout(false);
+            this.tscMain.TopToolStripPanel.PerformLayout();
             this.tscMain.ResumeLayout(false);
             this.tscMain.PerformLayout();
             this.ssMain.ResumeLayout(false);
             this.ssMain.PerformLayout();
+            this.tsMain.ResumeLayout(false);
+            this.tsMain.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -170,6 +202,8 @@
         private System.Windows.Forms.ToolStripContainer tscMain;
         private System.Windows.Forms.StatusStrip ssMain;
         private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
+        private System.Windows.Forms.ToolStrip tsMain;
+        private System.Windows.Forms.ToolStripButton tsbCopyAll;
     }
 }
 
