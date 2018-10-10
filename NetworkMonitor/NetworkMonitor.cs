@@ -38,13 +38,14 @@ namespace NetworkMonitor
         public bool IsConnected { get; private set; }
         public int DisconnectCount { get; private set; }
         public int FailThreshold { get; set; } = 5;
-        public string PingAddress { get; set; } = "8.8.8.8";
+        public string[] PingAddresses { get; set; } = new string[] { "8.8.8.8", "8.8.4.4" };
         public int PingInterval { get; set; } = 1000;
         public int PingTimeout { get; set; } = 1000;
 
         private int failCount = 0;
         private bool isFirstEvent = true;
         private DateTime firstFailDate;
+        private Random random = new Random();
 
         public void StartMonitorThread()
         {
@@ -67,7 +68,8 @@ namespace NetworkMonitor
 
         private bool CheckNetworkStatus()
         {
-            bool result = SendPing(PingAddress, PingTimeout);
+            string address = PingAddresses[random.Next(PingAddresses.Length)];
+            bool result = SendPing(address, PingTimeout);
 
             if (result)
             {

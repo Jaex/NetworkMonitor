@@ -60,6 +60,7 @@
             this.lvMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvMain.FullRowSelect = true;
+            this.lvMain.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvMain.Location = new System.Drawing.Point(0, 0);
             this.lvMain.Name = "lvMain";
             this.lvMain.Size = new System.Drawing.Size(534, 414);
@@ -137,13 +138,15 @@
             this.ssMain.Location = new System.Drawing.Point(0, 0);
             this.ssMain.Name = "ssMain";
             this.ssMain.Size = new System.Drawing.Size(534, 22);
+            this.ssMain.SizingGrip = false;
             this.ssMain.TabIndex = 0;
             // 
             // tsslStatus
             // 
             this.tsslStatus.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tsslStatus.Margin = new System.Windows.Forms.Padding(3, 4, 0, 5);
             this.tsslStatus.Name = "tsslStatus";
-            this.tsslStatus.Size = new System.Drawing.Size(0, 17);
+            this.tsslStatus.Size = new System.Drawing.Size(0, 13);
             // 
             // tsMain
             // 
@@ -154,7 +157,7 @@
             this.tsbOpenLogFile});
             this.tsMain.Location = new System.Drawing.Point(3, 0);
             this.tsMain.Name = "tsMain";
-            this.tsMain.Size = new System.Drawing.Size(176, 25);
+            this.tsMain.Size = new System.Drawing.Size(147, 25);
             this.tsMain.TabIndex = 0;
             // 
             // tsbCopyAll
@@ -170,6 +173,7 @@
             // 
             this.tsbOpenLogFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbOpenLogFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOpenLogFile.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
             this.tsbOpenLogFile.Name = "tsbOpenLogFile";
             this.tsbOpenLogFile.Size = new System.Drawing.Size(88, 22);
             this.tsbOpenLogFile.Text = "Open log file...";
