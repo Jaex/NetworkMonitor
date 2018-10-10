@@ -41,6 +41,7 @@
             this.tsslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.tsbCopyAll = new System.Windows.Forms.ToolStripButton();
+            this.tsbOpenLogFile = new System.Windows.Forms.ToolStripButton();
             this.cmsTray.SuspendLayout();
             this.tscMain.BottomToolStripPanel.SuspendLayout();
             this.tscMain.ContentPanel.SuspendLayout();
@@ -149,10 +150,11 @@
             this.tsMain.Dock = System.Windows.Forms.DockStyle.None;
             this.tsMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbCopyAll});
+            this.tsbCopyAll,
+            this.tsbOpenLogFile});
             this.tsMain.Location = new System.Drawing.Point(3, 0);
             this.tsMain.Name = "tsMain";
-            this.tsMain.Size = new System.Drawing.Size(88, 25);
+            this.tsMain.Size = new System.Drawing.Size(176, 25);
             this.tsMain.TabIndex = 0;
             // 
             // tsbCopyAll
@@ -163,6 +165,15 @@
             this.tsbCopyAll.Size = new System.Drawing.Size(54, 22);
             this.tsbCopyAll.Text = "Copy all";
             this.tsbCopyAll.Click += new System.EventHandler(this.tsbCopyAll_Click);
+            // 
+            // tsbOpenLogFile
+            // 
+            this.tsbOpenLogFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbOpenLogFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOpenLogFile.Name = "tsbOpenLogFile";
+            this.tsbOpenLogFile.Size = new System.Drawing.Size(88, 22);
+            this.tsbOpenLogFile.Text = "Open log file...";
+            this.tsbOpenLogFile.Click += new System.EventHandler(this.tsbOpenLogFile_Click);
             // 
             // MainForm
             // 
@@ -204,6 +215,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tsslStatus;
         private System.Windows.Forms.ToolStrip tsMain;
         private System.Windows.Forms.ToolStripButton tsbCopyAll;
+        private System.Windows.Forms.ToolStripButton tsbOpenLogFile;
     }
 }
 

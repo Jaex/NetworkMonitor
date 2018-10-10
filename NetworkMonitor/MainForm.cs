@@ -24,6 +24,7 @@
 
 using NetworkMonitor.Properties;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -104,6 +105,24 @@ namespace NetworkMonitor
             File.AppendAllText(Program.LogsFilePath, $"{date} - {text}" + Environment.NewLine);
         }
 
+        private void OpenLogFile()
+        {
+            try
+            {
+                if (File.Exists(Program.LogsFilePath))
+                {
+                    Process.Start(Program.LogsFilePath);
+                }
+                else if (Directory.Exists(Program.LogsFolder))
+                {
+                    Process.Start(Program.LogsFolder);
+                }
+            }
+            catch
+            {
+            }
+        }
+
         private void UpdateStatusBar()
         {
             tsslStatus.Text = "Disconnect count: " + networkMonitor.DisconnectCount;
@@ -167,6 +186,11 @@ namespace NetworkMonitor
                 string text = sb.ToString().Trim();
                 Clipboard.SetText(text);
             }
+        }
+
+        private void tsbOpenLogFile_Click(object sender, EventArgs e)
+        {
+            OpenLogFile();
         }
     }
 }
