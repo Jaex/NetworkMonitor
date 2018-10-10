@@ -25,6 +25,7 @@
 using NetworkMonitor.Properties;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -64,6 +65,8 @@ namespace NetworkMonitor
         {
             string text = isConnected ? "Connected." : "Disconnected.";
 
+            AppendLog(date, text);
+
             ListViewItem lvi = new ListViewItem();
             lvi.ForeColor = isConnected ? Color.Green : Color.Firebrick;
             lvi.Text = date.ToString();
@@ -89,6 +92,16 @@ namespace NetworkMonitor
                 date = date.AddSeconds(random.Next(1, 60));
                 AddConnectionStatus(true, date, false);
             }
+        }
+
+        private void AppendLog(DateTime date, string text)
+        {
+            if (!Directory.Exists(Program.LogsFolder))
+            {
+                Directory.CreateDirectory(Program.LogsFolder);
+            }
+
+            File.AppendAllText(Program.LogsFilePath, $"{date} - {text}" + Environment.NewLine);
         }
 
         private void UpdateStatusBar()

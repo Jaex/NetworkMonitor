@@ -23,12 +23,30 @@
 #endregion License Information (GPL v3)
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace NetworkMonitor
 {
     internal static class Program
     {
+        private const string PersonalFolderName = "Network Monitor";
+
+        public static string PersonalFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), PersonalFolderName);
+
+        private const string LogsFolderName = "Logs";
+
+        public static string LogsFolder => Path.Combine(PersonalFolder, LogsFolderName);
+
+        public static string LogsFilePath
+        {
+            get
+            {
+                string filename = $"NetworkMonitor-Log-{DateTime.Now:yyyy-MM}.txt";
+                return Path.Combine(LogsFolder, filename);
+            }
+        }
+
         [STAThread]
         private static void Main()
         {
