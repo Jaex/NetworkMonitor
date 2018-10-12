@@ -47,6 +47,8 @@ namespace NetworkMonitor
             }
         }
 
+        public static Settings Settings { get; private set; } = new Settings();
+
         [STAThread]
         private static void Main()
         {

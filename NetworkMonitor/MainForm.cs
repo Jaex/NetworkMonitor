@@ -56,17 +56,20 @@ namespace NetworkMonitor
             {
                 Invoke((Action)delegate
                 {
-                    AddConnectionStatus(isConnected, date, true);
+                    AddConnectionStatus(isConnected, date);
                     UpdateStatusBar();
                 });
             }
         }
 
-        private void AddConnectionStatus(bool isConnected, DateTime date, bool showBalloonTip)
+        private void AddConnectionStatus(bool isConnected, DateTime date)
         {
             string text = isConnected ? "Connected." : "Disconnected.";
 
-            AppendLog(date, text);
+            if (Program.Settings.LogStatus)
+            {
+                AppendLog(date, text);
+            }
 
             ListViewItem lvi = new ListViewItem();
             lvi.ForeColor = isConnected ? Color.Green : Color.Firebrick;
@@ -74,7 +77,7 @@ namespace NetworkMonitor
             lvi.SubItems.Add(text);
             lvMain.Items.Add(lvi);
 
-            if (showBalloonTip)
+            if (Program.Settings.ShowNotification)
             {
                 niMain.ShowBalloonTip(5000, "Network monitor", text, ToolTipIcon.Info);
             }
@@ -89,9 +92,9 @@ namespace NetworkMonitor
             for (int i = 0; i < count; i++)
             {
                 date = date.AddSeconds(random.Next(300, 3600));
-                AddConnectionStatus(false, date, false);
+                AddConnectionStatus(false, date);
                 date = date.AddSeconds(random.Next(1, 60));
-                AddConnectionStatus(true, date, false);
+                AddConnectionStatus(true, date);
             }
         }
 

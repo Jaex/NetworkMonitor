@@ -37,6 +37,7 @@ namespace NetworkMonitor
 
         public bool IsConnected { get; private set; }
         public int DisconnectCount { get; private set; }
+
         public int FailThreshold { get; set; } = 5;
         public string[] PingAddresses { get; set; } = new string[] { "8.8.8.8", "8.8.4.4" };
         public int PingInterval { get; set; } = 1000;
