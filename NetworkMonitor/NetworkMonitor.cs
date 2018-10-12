@@ -35,6 +35,7 @@ namespace NetworkMonitor
         public delegate void NetworkStatusEventHandler(bool isConnected, DateTime date);
         public event NetworkStatusEventHandler NetworkStatusChanged;
 
+        public bool IsMonitoring { get; private set; }
         public bool IsConnected { get; private set; }
         public int DisconnectCount { get; private set; }
 
@@ -47,24 +48,41 @@ namespace NetworkMonitor
         private bool isFirstEvent = true;
         private DateTime firstFailDate;
         private Random random = new Random();
+        private bool isStopRequested;
 
         public void StartMonitorThread()
         {
-            Task.Run(() =>
+            if (!IsMonitoring)
             {
-                Stopwatch timer = new Stopwatch();
+                IsMonitoring = true;
+                isStopRequested = false;
 
-                while (true)
+                Task.Run(() =>
                 {
-                    timer.Restart();
-                    CheckNetworkStatus();
-                    int elapsed = (int)timer.ElapsedMilliseconds;
-                    if (elapsed < PingInterval)
+                    Stopwatch timer = new Stopwatch();
+
+                    while (!isStopRequested)
                     {
-                        Thread.Sleep(PingInterval - elapsed);
+                        timer.Restart();
+                        CheckNetworkStatus();
+                        int elapsed = (int)timer.ElapsedMilliseconds;
+                        if (elapsed < PingInterval)
+                        {
+                            Thread.Sleep(PingInterval - elapsed);
+                        }
                     }
-                }
-            });
+
+                    IsMonitoring = false;
+                });
+            }
+        }
+
+        public void StopMonitorThread()
+        {
+            if (IsMonitoring)
+            {
+                isStopRequested = true;
+            }
         }
 
         private bool CheckNetworkStatus()
