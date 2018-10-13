@@ -158,12 +158,14 @@
             this.tsbOpenLogFile});
             this.tsMain.Location = new System.Drawing.Point(3, 0);
             this.tsMain.Name = "tsMain";
+            this.tsMain.ShowItemToolTips = false;
             this.tsMain.Size = new System.Drawing.Size(147, 25);
             this.tsMain.TabIndex = 0;
             // 
             // tsbCopyAll
             // 
             this.tsbCopyAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbCopyAll.Enabled = false;
             this.tsbCopyAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCopyAll.Name = "tsbCopyAll";
             this.tsbCopyAll.Size = new System.Drawing.Size(54, 22);

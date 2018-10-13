@@ -43,6 +43,8 @@ namespace NetworkMonitor
             Icon = Resources.Icon;
             niMain.Icon = Resources.Icon;
 
+            tsbOpenLogFile.Enabled = Directory.Exists(Program.LogsFolder);
+
             networkMonitor = new NetworkMonitor();
             networkMonitor.NetworkStatusChanged += NetworkMonitor_NetworkStatusChanged;
             networkMonitor.StartMonitorThread();
@@ -69,6 +71,7 @@ namespace NetworkMonitor
             if (Program.Settings.LogStatus)
             {
                 AppendLog(date, text);
+                tsbOpenLogFile.Enabled = true;
             }
 
             ListViewItem lvi = new ListViewItem();
@@ -76,6 +79,8 @@ namespace NetworkMonitor
             lvi.Text = date.ToString();
             lvi.SubItems.Add(text);
             lvMain.Items.Add(lvi);
+
+            tsbCopyAll.Enabled = true;
 
             if (Program.Settings.ShowNotification)
             {
