@@ -164,6 +164,11 @@ namespace NetworkMonitor
             }
         }
 
+        private void niMain_BalloonTipClicked(object sender, EventArgs e)
+        {
+            OpenMainWindow();
+        }
+
         private void tsmiOpenMainWindow_Click(object sender, EventArgs e)
         {
             OpenMainWindow();

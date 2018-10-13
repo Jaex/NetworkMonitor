@@ -83,6 +83,7 @@
             this.niMain.ContextMenuStrip = this.cmsTray;
             this.niMain.Text = "Network monitor";
             this.niMain.Visible = true;
+            this.niMain.BalloonTipClicked += new System.EventHandler(this.niMain_BalloonTipClicked);
             this.niMain.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.niMain_MouseDoubleClick);
             // 
             // cmsTray
