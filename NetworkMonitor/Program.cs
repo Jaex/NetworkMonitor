@@ -31,9 +31,9 @@ namespace NetworkMonitor
 {
     internal static class Program
     {
-        private const string PersonalFolderName = "Network Monitor";
+        public const string ApplicationName = "Network Monitor";
 
-        public static string PersonalFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), PersonalFolderName);
+        public static string PersonalFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ApplicationName);
 
         private const string LogsFolderName = "Logs";
 

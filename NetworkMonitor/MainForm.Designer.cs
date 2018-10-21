@@ -42,6 +42,7 @@
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.tsbCopyAll = new System.Windows.Forms.ToolStripButton();
             this.tsbOpenLogFile = new System.Windows.Forms.ToolStripButton();
+            this.tsbSettings = new System.Windows.Forms.ToolStripButton();
             this.cmsTray.SuspendLayout();
             this.tscMain.BottomToolStripPanel.SuspendLayout();
             this.tscMain.ContentPanel.SuspendLayout();
@@ -81,7 +82,7 @@
             // niMain
             // 
             this.niMain.ContextMenuStrip = this.cmsTray;
-            this.niMain.Text = "Network monitor";
+            this.niMain.Text = "Network Monitor";
             this.niMain.Visible = true;
             this.niMain.BalloonTipClicked += new System.EventHandler(this.niMain_BalloonTipClicked);
             this.niMain.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.niMain_MouseDoubleClick);
@@ -155,11 +156,12 @@
             this.tsMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbCopyAll,
-            this.tsbOpenLogFile});
+            this.tsbOpenLogFile,
+            this.tsbSettings});
             this.tsMain.Location = new System.Drawing.Point(3, 0);
             this.tsMain.Name = "tsMain";
             this.tsMain.ShowItemToolTips = false;
-            this.tsMain.Size = new System.Drawing.Size(147, 25);
+            this.tsMain.Size = new System.Drawing.Size(211, 25);
             this.tsMain.TabIndex = 0;
             // 
             // tsbCopyAll
@@ -182,15 +184,25 @@
             this.tsbOpenLogFile.Text = "Open log file...";
             this.tsbOpenLogFile.Click += new System.EventHandler(this.tsbOpenLogFile_Click);
             // 
+            // tsbSettings
+            // 
+            this.tsbSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSettings.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
+            this.tsbSettings.Name = "tsbSettings";
+            this.tsbSettings.Size = new System.Drawing.Size(62, 22);
+            this.tsbSettings.Text = "Settings...";
+            this.tsbSettings.Click += new System.EventHandler(this.tsbSettings_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.tscMain);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Network monitor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.cmsTray.ResumeLayout(false);
             this.tscMain.BottomToolStripPanel.ResumeLayout(false);
@@ -223,6 +235,7 @@
         private System.Windows.Forms.ToolStrip tsMain;
         private System.Windows.Forms.ToolStripButton tsbCopyAll;
         private System.Windows.Forms.ToolStripButton tsbOpenLogFile;
+        private System.Windows.Forms.ToolStripButton tsbSettings;
     }
 }
 

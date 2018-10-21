@@ -40,6 +40,7 @@ namespace NetworkMonitor
         public MainForm()
         {
             InitializeComponent();
+            Text = Program.ApplicationName;
             Icon = Resources.Icon;
             niMain.Icon = Resources.Icon;
 
@@ -215,6 +216,14 @@ namespace NetworkMonitor
         private void tsbOpenLogFile_Click(object sender, EventArgs e)
         {
             OpenLogFile();
+        }
+
+        private void tsbSettings_Click(object sender, EventArgs e)
+        {
+            using (SettingsForm settingsForm = new SettingsForm())
+            {
+                settingsForm.ShowDialog();
+            }
         }
     }
 }
