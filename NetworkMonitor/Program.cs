@@ -25,6 +25,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace NetworkMonitor
 {
@@ -47,11 +48,15 @@ namespace NetworkMonitor
             }
         }
 
+        public static bool Silent { get; private set; }
+
         public static Settings Settings { get; private set; } = new Settings();
 
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
+            Silent = args.Any(x => x.Equals("-silent", StringComparison.InvariantCultureIgnoreCase));
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

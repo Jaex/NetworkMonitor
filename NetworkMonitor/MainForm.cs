@@ -161,6 +161,17 @@ namespace NetworkMonitor
             Activate();
         }
 
+        protected override void SetVisibleCore(bool value)
+        {
+            if (value && !IsHandleCreated && Program.Silent)
+            {
+                CreateHandle();
+                value = false;
+            }
+
+            base.SetVisibleCore(value);
+        }
+
         private void niMain_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
