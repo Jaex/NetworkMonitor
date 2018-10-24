@@ -85,12 +85,15 @@ namespace NetworkMonitor
 
             Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Sending ping to {address}");
 
-            bool result = SendPing(address, PingTimeout);
+            PingReply reply = SendPing(address, PingTimeout);
+            bool result = reply != null && reply.Status == IPStatus.Success;
 
             lock (monitorLock)
             {
                 if (result)
                 {
+                    Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Result: {reply.RoundtripTime}ms");
+
                     failCount = 0;
 
                     if (!IsConnected)
@@ -109,6 +112,8 @@ namespace NetworkMonitor
                 }
                 else
                 {
+                    Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Result: Timeout");
+
                     failCount++;
 
                     if (IsConnected)
@@ -128,8 +133,6 @@ namespace NetworkMonitor
                 }
             }
 
-            Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Result: {result}");
-
             return result;
         }
 
@@ -141,21 +144,20 @@ namespace NetworkMonitor
             }
         }
 
-        private bool SendPing(string address, int timeout)
+        private PingReply SendPing(string address, int timeout)
         {
             try
             {
                 using (Ping ping = new Ping())
                 {
-                    PingReply reply = ping.Send(address, timeout);
-                    return reply != null && reply.Status == IPStatus.Success;
+                    return ping.Send(address, timeout);
                 }
             }
             catch
             {
             }
 
-            return false;
+            return null;
         }
     }
 }
