@@ -48,7 +48,7 @@ namespace NetworkMonitor
 
             networkMonitor = new NetworkMonitor();
             networkMonitor.NetworkStatusChanged += NetworkMonitor_NetworkStatusChanged;
-            networkMonitor.StartMonitorThread();
+            networkMonitor.Start();
 
             UpdateStatusBar();
         }

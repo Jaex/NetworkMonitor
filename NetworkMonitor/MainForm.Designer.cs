@@ -35,6 +35,8 @@
             this.niMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.cmsTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiOpenMainWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenLogFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tscMain = new System.Windows.Forms.ToolStripContainer();
             this.ssMain = new System.Windows.Forms.StatusStrip();
@@ -43,8 +45,6 @@
             this.tsbCopyAll = new System.Windows.Forms.ToolStripButton();
             this.tsbOpenLogFile = new System.Windows.Forms.ToolStripButton();
             this.tsbSettings = new System.Windows.Forms.ToolStripButton();
-            this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiOpenLogFile = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsTray.SuspendLayout();
             this.tscMain.BottomToolStripPanel.SuspendLayout();
             this.tscMain.ContentPanel.SuspendLayout();
@@ -103,14 +103,28 @@
             // tsmiOpenMainWindow
             // 
             this.tsmiOpenMainWindow.Name = "tsmiOpenMainWindow";
-            this.tsmiOpenMainWindow.Size = new System.Drawing.Size(155, 22);
+            this.tsmiOpenMainWindow.Size = new System.Drawing.Size(153, 22);
             this.tsmiOpenMainWindow.Text = "Open main window";
             this.tsmiOpenMainWindow.Click += new System.EventHandler(this.tsmiOpenMainWindow_Click);
+            // 
+            // tsmiOpenLogFile
+            // 
+            this.tsmiOpenLogFile.Name = "tsmiOpenLogFile";
+            this.tsmiOpenLogFile.Size = new System.Drawing.Size(153, 22);
+            this.tsmiOpenLogFile.Text = "Open log file...";
+            this.tsmiOpenLogFile.Click += new System.EventHandler(this.tsbOpenLogFile_Click);
+            // 
+            // tsmiSettings
+            // 
+            this.tsmiSettings.Name = "tsmiSettings";
+            this.tsmiSettings.Size = new System.Drawing.Size(153, 22);
+            this.tsmiSettings.Text = "Settings...";
+            this.tsmiSettings.Click += new System.EventHandler(this.tsbSettings_Click);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(155, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(153, 22);
             this.tsmiExit.Text = "Exit";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -198,25 +212,10 @@
             this.tsbSettings.Text = "Settings...";
             this.tsbSettings.Click += new System.EventHandler(this.tsbSettings_Click);
             // 
-            // tsmiSettings
-            // 
-            this.tsmiSettings.Name = "tsmiSettings";
-            this.tsmiSettings.Size = new System.Drawing.Size(153, 22);
-            this.tsmiSettings.Text = "Settings...";
-            this.tsmiSettings.Click += new System.EventHandler(this.tsbSettings_Click);
-            // 
-            // tsmiOpenLogFile
-            // 
-            this.tsmiOpenLogFile.Name = "tsmiOpenLogFile";
-            this.tsmiOpenLogFile.Size = new System.Drawing.Size(153, 22);
-            this.tsmiOpenLogFile.Text = "Open log file...";
-            this.tsmiOpenLogFile.Click += new System.EventHandler(this.tsbOpenLogFile_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.tscMain);
             this.Name = "MainForm";

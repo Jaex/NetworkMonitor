@@ -26,7 +26,6 @@ using System;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace NetworkMonitor
 {
@@ -39,94 +38,97 @@ namespace NetworkMonitor
         public bool IsConnected { get; private set; }
         public int DisconnectCount { get; private set; }
 
-        public int FailThreshold { get; set; } = 5;
+        public int FailThreshold { get; set; } = 4;
         public string[] PingAddresses { get; set; } = new string[] { "8.8.8.8", "8.8.4.4" };
         public int PingInterval { get; set; } = 1000;
-        public int PingTimeout { get; set; } = 1000;
+        public int PingTimeout { get; set; } = 4000;
+        public int TotalTimeoutTime => PingTimeout + ((FailThreshold - 1) * PingInterval);
 
         private int failCount = 0;
         private bool isFirstEvent = true;
         private DateTime firstFailDate;
         private Random random = new Random();
-        private bool isStopRequested;
+        private Timer monitorTimer;
+        private object monitorLock = new object();
+        private int taskIndex;
 
-        public void StartMonitorThread()
+        public void Start()
         {
             if (!IsMonitoring)
             {
                 IsMonitoring = true;
-                isStopRequested = false;
 
-                Task.Run(() =>
+                if (monitorTimer != null)
                 {
-                    Stopwatch timer = new Stopwatch();
+                    monitorTimer.Dispose();
+                }
 
-                    while (!isStopRequested)
-                    {
-                        timer.Restart();
-                        CheckNetworkStatus();
-                        int elapsed = (int)timer.ElapsedMilliseconds;
-                        if (elapsed < PingInterval)
-                        {
-                            Thread.Sleep(PingInterval - elapsed);
-                        }
-                    }
-
-                    IsMonitoring = false;
-                });
+                monitorTimer = new Timer(state => CheckNetworkStatus(), null, 0, PingInterval);
             }
         }
 
-        public void StopMonitorThread()
+        public void Stop()
         {
             if (IsMonitoring)
             {
-                isStopRequested = true;
+                monitorTimer.Dispose();
+                monitorTimer = null;
+
+                IsMonitoring = false;
             }
         }
 
         private bool CheckNetworkStatus()
         {
+            int index = ++taskIndex;
             string address = PingAddresses[random.Next(PingAddresses.Length)];
+
+            Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Sending ping to {address}");
+
             bool result = SendPing(address, PingTimeout);
 
-            if (result)
+            lock (monitorLock)
             {
-                failCount = 0;
-
-                if (!IsConnected)
+                if (result)
                 {
-                    IsConnected = true;
+                    failCount = 0;
 
-                    if (isFirstEvent)
+                    if (!IsConnected)
                     {
-                        isFirstEvent = false;
+                        IsConnected = true;
+
+                        if (isFirstEvent)
+                        {
+                            isFirstEvent = false;
+                        }
+                        else
+                        {
+                            OnNetworkStatusChanged(IsConnected, DateTime.Now);
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    failCount++;
+
+                    if (IsConnected)
                     {
-                        OnNetworkStatusChanged(IsConnected, DateTime.Now);
+                        if (failCount == 1)
+                        {
+                            firstFailDate = DateTime.Now;
+                        }
+
+                        if (failCount >= FailThreshold)
+                        {
+                            IsConnected = false;
+                            DisconnectCount++;
+                            OnNetworkStatusChanged(IsConnected, firstFailDate);
+                        }
                     }
                 }
             }
-            else
-            {
-                failCount++;
 
-                if (IsConnected)
-                {
-                    if (failCount == 1)
-                    {
-                        firstFailDate = DateTime.Now;
-                    }
-
-                    if (failCount >= FailThreshold)
-                    {
-                        IsConnected = false;
-                        DisconnectCount++;
-                        OnNetworkStatusChanged(IsConnected, firstFailDate);
-                    }
-                }
-            }
+            Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Result: {result}");
 
             return result;
         }
