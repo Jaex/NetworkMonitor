@@ -39,18 +39,19 @@ namespace NetworkMonitor
         public int DisconnectCount { get; private set; }
 
         public int FailThreshold { get; set; } = 4;
-        public string[] PingAddresses { get; set; } = new string[] { "8.8.8.8", "8.8.4.4" };
+        public string[] PingAddresses { get; set; } = new string[] { "8.8.8.8", "8.8.4.4", "1.1.1.1", "1.0.0.1" };
         public int PingInterval { get; set; } = 1000;
         public int PingTimeout { get; set; } = 4000;
         public int TotalTimeoutTime => PingTimeout + ((FailThreshold - 1) * PingInterval);
 
-        private int failCount = 0;
+        private int failCount;
         private bool isFirstEvent = true;
         private DateTime firstFailDate;
-        private Random random = new Random();
-        private Timer monitorTimer;
-        private object monitorLock = new object();
         private int taskIndex;
+        private int pingAddressIndex;
+        private Timer monitorTimer;
+        private object initialLock = new object();
+        private object monitorLock = new object();
 
         public void Start()
         {
@@ -80,10 +81,19 @@ namespace NetworkMonitor
 
         private bool CheckNetworkStatus()
         {
-            int index = ++taskIndex;
-            string address = PingAddresses[random.Next(PingAddresses.Length)];
+            int index;
+            string address;
 
-            Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Sending ping to {address}");
+            lock (initialLock)
+            {
+                taskIndex++;
+                index = taskIndex;
+                if (pingAddressIndex >= PingAddresses.Length) pingAddressIndex = 0;
+                address = PingAddresses[pingAddressIndex];
+                pingAddressIndex++;
+            }
+
+            DebugWriteLine(index, $"Sending ping to {address}");
 
             PingReply reply = SendPing(address, PingTimeout);
             bool result = reply != null && reply.Status == IPStatus.Success;
@@ -92,7 +102,7 @@ namespace NetworkMonitor
             {
                 if (result)
                 {
-                    Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Result: {reply.RoundtripTime}ms");
+                    DebugWriteLine(index, $"Result: {reply.RoundtripTime}ms");
 
                     failCount = 0;
 
@@ -112,7 +122,7 @@ namespace NetworkMonitor
                 }
                 else
                 {
-                    Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] Result: Timeout");
+                    DebugWriteLine(index, "Result: Timeout");
 
                     failCount++;
 
@@ -158,6 +168,11 @@ namespace NetworkMonitor
             }
 
             return null;
+        }
+
+        private void DebugWriteLine(int index, string text)
+        {
+            Debug.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - [{index}] {text}");
         }
     }
 }
