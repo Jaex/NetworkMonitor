@@ -63,7 +63,7 @@ namespace NetworkMonitor
         {
             try
             {
-                return CheckRegistry(StartupRegistryPath, Program.ApplicationName, StartupRegistryValue);
+                return CheckRegistry(StartupRegistryPath, Program.Name, StartupRegistryValue);
             }
             catch (Exception e)
             {
@@ -83,11 +83,11 @@ namespace NetworkMonitor
                     {
                         if (create)
                         {
-                            rk.SetValue(Program.ApplicationName, StartupRegistryValue, RegistryValueKind.String);
+                            rk.SetValue(Program.Name, StartupRegistryValue, RegistryValueKind.String);
                         }
                         else
                         {
-                            rk.DeleteValue(Program.ApplicationName, false);
+                            rk.DeleteValue(Program.Name, false);
                         }
                     }
                 }

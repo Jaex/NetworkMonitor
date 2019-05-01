@@ -40,7 +40,7 @@ namespace NetworkMonitor
         public MainForm()
         {
             InitializeComponent();
-            Text = Program.ApplicationName;
+            Text = Program.Title;
             Icon = Resources.Icon;
             niMain.Icon = Resources.Icon;
 

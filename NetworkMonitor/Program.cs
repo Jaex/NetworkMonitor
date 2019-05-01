@@ -26,14 +26,30 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Linq;
+using System.Text;
 
 namespace NetworkMonitor
 {
     internal static class Program
     {
-        public const string ApplicationName = "Network Monitor";
+        public const string Name = "Network Monitor";
 
-        public static string PersonalFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ApplicationName);
+        public static string VersionText
+        {
+            get
+            {
+                StringBuilder sbVersionText = new StringBuilder();
+                Version version = Version.Parse(Application.ProductVersion);
+                sbVersionText.Append(version.Major + "." + version.Minor);
+                if (version.Build > 0) sbVersionText.Append("." + version.Build);
+                if (version.Revision > 0) sbVersionText.Append("." + version.Revision);
+                return sbVersionText.ToString();
+            }
+        }
+
+        public static string Title => $"{Name} {VersionText}";
+
+        public static string PersonalFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Name);
 
         private const string LogsFolderName = "Logs";
 

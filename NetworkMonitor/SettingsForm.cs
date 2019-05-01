@@ -35,7 +35,7 @@ namespace NetworkMonitor
         public SettingsForm()
         {
             InitializeComponent();
-            Text = Program.ApplicationName + " - Settings";
+            Text = Program.Name + " - Settings";
             Icon = Resources.Icon;
 
             cbStartup.Checked = Helpers.CheckStartup();
