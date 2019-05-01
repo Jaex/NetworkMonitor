@@ -8,7 +8,7 @@
 #expr ParseVersion(MyAppFilepath, Version[0], Version[1], Version[2], Version[3])
 #define MyAppVersion Str(Version[0]) + "." + Str(Version[1]) + "." + Str(Version[2])
 #define MyAppPublisher "Jaex"
-#define MyAppId "606352E6-50BA-43B0-B907-809F06C6B62C"
+#define MyAppId "832ed48d-596b-4f55-a1f0-d877e9c8a66c"
 
 [Setup]
 AppCopyright=Copyright (c) {#MyAppPublisher}
