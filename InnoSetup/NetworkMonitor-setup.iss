@@ -1,5 +1,6 @@
 #define MyAppName "Network Monitor"
 #define MyAppRootDirectory ".."
+#define MyAppOutputDirectory MyAppRootDirectory + "\Output"
 #define MyAppReleaseDirectory MyAppRootDirectory + "\NetworkMonitor\bin\Release"
 #define MyAppFilename "NetworkMonitor.exe"
 #define MyAppFilepath MyAppReleaseDirectory + "\" + MyAppFilename
@@ -25,12 +26,17 @@ ArchitecturesInstallIn64BitMode=x64 ia64
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DirExistsWarning=no
-DisableReadyPage=yes
+DisableStartupPrompt=yes
+DisableWelcomePage=yes
 DisableProgramGroupPage=yes
+DisableReadyPage=no
+DisableReadyMemo=no
+DisableFinishedPage=no
 LicenseFile={#MyAppRootDirectory}\LICENSE.txt
+; .NET 4.6.2 is supported only on Windows 7 SP1 and up
 MinVersion=0,6.1.7601
 OutputBaseFilename=NetworkMonitor-{#MyAppVersion}-setup
-OutputDir=Output\
+OutputDir={#MyAppOutputDirectory}
 PrivilegesRequired=none
 ShowLanguageDialog=no
 UninstallDisplayIcon={app}\{#MyAppFilename}
