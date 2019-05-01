@@ -225,5 +225,16 @@ namespace NetworkMonitor
                 settingsForm.ShowDialog();
             }
         }
+
+        private void tsbOpenGitHub_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("https://github.com/Jaex/NetworkMonitor");
+            }
+            catch
+            {
+            }
+        }
     }
 }

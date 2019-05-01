@@ -45,6 +45,7 @@
             this.tsbCopyAll = new System.Windows.Forms.ToolStripButton();
             this.tsbOpenLogFile = new System.Windows.Forms.ToolStripButton();
             this.tsbSettings = new System.Windows.Forms.ToolStripButton();
+            this.tsbOpenGitHub = new System.Windows.Forms.ToolStripButton();
             this.cmsTray.SuspendLayout();
             this.tscMain.BottomToolStripPanel.SuspendLayout();
             this.tscMain.ContentPanel.SuspendLayout();
@@ -175,15 +176,17 @@
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbCopyAll,
             this.tsbOpenLogFile,
-            this.tsbSettings});
-            this.tsMain.Location = new System.Drawing.Point(3, 0);
+            this.tsbSettings,
+            this.tsbOpenGitHub});
+            this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
-            this.tsMain.ShowItemToolTips = false;
-            this.tsMain.Size = new System.Drawing.Size(211, 25);
+            this.tsMain.Size = new System.Drawing.Size(534, 25);
+            this.tsMain.Stretch = true;
             this.tsMain.TabIndex = 0;
             // 
             // tsbCopyAll
             // 
+            this.tsbCopyAll.AutoToolTip = false;
             this.tsbCopyAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbCopyAll.Enabled = false;
             this.tsbCopyAll.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -194,6 +197,7 @@
             // 
             // tsbOpenLogFile
             // 
+            this.tsbOpenLogFile.AutoToolTip = false;
             this.tsbOpenLogFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbOpenLogFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpenLogFile.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
@@ -204,6 +208,7 @@
             // 
             // tsbSettings
             // 
+            this.tsbSettings.AutoToolTip = false;
             this.tsbSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSettings.Margin = new System.Windows.Forms.Padding(2, 1, 0, 2);
@@ -211,6 +216,17 @@
             this.tsbSettings.Size = new System.Drawing.Size(62, 22);
             this.tsbSettings.Text = "Settings...";
             this.tsbSettings.Click += new System.EventHandler(this.tsbSettings_Click);
+            // 
+            // tsbOpenGitHub
+            // 
+            this.tsbOpenGitHub.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbOpenGitHub.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbOpenGitHub.Image = global::NetworkMonitor.Properties.Resources.GitHub;
+            this.tsbOpenGitHub.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOpenGitHub.Name = "tsbOpenGitHub";
+            this.tsbOpenGitHub.Size = new System.Drawing.Size(23, 22);
+            this.tsbOpenGitHub.Text = "Open GitHub page...";
+            this.tsbOpenGitHub.Click += new System.EventHandler(this.tsbOpenGitHub_Click);
             // 
             // MainForm
             // 
@@ -255,6 +271,7 @@
         private System.Windows.Forms.ToolStripButton tsbSettings;
         private System.Windows.Forms.ToolStripMenuItem tsmiOpenLogFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiSettings;
+        private System.Windows.Forms.ToolStripButton tsbOpenGitHub;
     }
 }
 
